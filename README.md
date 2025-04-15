@@ -55,7 +55,7 @@ login()  # Enter your token when prompted
 Training is initiated via the Hugging Face `Trainer`:
 
 ```bash
-python finma_lora_train.py
+python main.py
 ```
 
 Key training configurations:
