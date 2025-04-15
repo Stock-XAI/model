@@ -18,7 +18,7 @@ This project fine-tunes the [FinMA-7B](https://huggingface.co/ChanceFocus/finma-
 
 ```
 ├── output.jsonl           # Input training data (instruction-answer format)
-├── finma_lora_train.py    # Main training script
+├── main.py                # Main training script
 ├── finma-lora-stock/      # Output directory for trained model and tokenizer
 ```
 
