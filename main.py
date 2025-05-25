@@ -14,7 +14,6 @@ os.environ["PYTORCH_CUDA_ALLOC_CONF"] = "expandable_segments:True"
 
 # ✅ 모델 & 토크나이저 로드
 model_name = "ChanceFocus/finma-7b-full"
-token = "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"
 tokenizer = LlamaTokenizer.from_pretrained(model_name, token=token)
 
 # ✅ 4bit 양자화 설정
@@ -27,7 +26,6 @@ bnb_config = BitsAndBytesConfig(
 
 model = LlamaForCausalLM.from_pretrained(
     model_name,
-    token=token,
     device_map="auto",
     quantization_config=bnb_config
 )
