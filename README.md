@@ -1,92 +1,49 @@
-# Fine-Tuning FinMA-7B with LoRA and 4-Bit Quantization
+# Stock-XAI: Financial Forecasting with Explainable AI
 
-This project fine-tunes the [FinMA-7B](https://huggingface.co/ChanceFocus/finma-7b-full) model for instruction-based financial language modeling using **LoRA** (Low-Rank Adaptation) and **4-bit quantization**
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/Stock-XAI/model)
 
----
+## 📌 Overview
 
-##  Features
-
-- 4-bit quantized model loading via `BitsAndBytesConfig`
-- LoRA tuning with PEFT for low-memory adaptation
-- Hugging Face `transformers` and `datasets` integration
-- Tokenization and dataset preparation from `jsonl` instruction-answer pairs
-- Saves the fine-tuned model and tokenizer locally
+This repository contains the codebase and configuration files for the `finma-7b-4bit-quantized` model, a quantized and LoRA-finetuned version of a large language model applied to financial time series forecasting. The goal of this project is to enable resource-efficient financial prediction while enhancing interpretability through Explainable AI (XAI) methods.
 
 ---
 
-##  Project Structure
+## 🚀 Project Goals
 
-```
-├── output.jsonl           # Input training data (instruction-answer format)
-├── main.py                # Main training script
-├── finma-lora-stock/      # Output directory for trained model and tokenizer
-```
+### ✅ Accomplished (Past 2 Weeks)
 
----
+* **Model Size Reduction:**
+  Compressed `finma-7b-full` to 3.87GB using 4-bit quantization.
+  🔗 [View Model on Hugging Face](https://huggingface.co/capston-team-5/finma-7b-4bit-quantized)
 
-##  Requirements
+* **Training Optimization:**
+  Applied LoRA fine-tuning and memory-efficient training configurations.
 
-- Python 3.10+
-- PyTorch with CUDA
-- Hugging Face `transformers`, `datasets`, `peft`, `bitsandbytes`, `huggingface_hub`
+### 🔄 Ongoing (Current Cycle)
 
-Install required packages:
+* **SHAP Integration:**
+  Applying SHAP (SHapley Additive exPlanations) to understand feature contributions.
 
-```bash
-pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
-pip install transformers datasets peft bitsandbytes huggingface_hub
-```
+* **XAI Exploration:**
+  Comparing additional explainability techniques (e.g., Integrated Gradients, Attention Rollout).
 
----
-
-##  Authentication
-
-Login to Hugging Face Hub:
-
-```python
-from huggingface_hub import login
-login()  # Enter your token when prompted
-```
+* **Regression Finetuning:**
+  Adapting the model for regression tasks to improve stock price forecasting accuracy.
 
 ---
 
-##  Training
+## 🧠 Model Details
 
-Training is initiated via the Hugging Face `Trainer`:
-
-```bash
-python main.py
-```
-
-Key training configurations:
-
-- **Batch size:** 1 (with gradient accumulation of 8)
-- **Epochs:** 8
-- **FP16:** Enabled
-- **Gradient checkpointing:** Enabled
-- **Model saved after each epoch**
+* **Base Model:** finma-7b-full
+* **Quantization:** 4-bit (GPTQ)
+* **Fine-Tuning:** LoRA (Low-Rank Adaptation)
+* **Frameworks:** Transformers, PEFT, BitsAndBytes
 
 ---
 
-##  Output
+## 📊 Dataset
 
-After training, the model and tokenizer are saved to:
+The dataset consists of daily KOSPI stock prices for the top-listed companies in South Korea, including:
 
-```
-./finma-lora-stock/
-```
-
-Use `from_pretrained("./finma-lora-stock")` to reload them later.
-
----
-
-##  Notes
-
-- Padding token is set to EOS token to avoid mismatch issues.
-- LoRA is applied to key transformer modules: `q_proj`, `v_proj`, `k_proj`, etc.
-- Model is optimized for instruction-following generation in financial contexts.
-
----
-
-Feel free to modify hyperparameters or prompt formatting based on your dataset or compute budget.
-
+* Open, High, Low, Close, Volume
+* Daily % Change
