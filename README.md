@@ -1,49 +1,115 @@
-# Stock-XAI: Financial Forecasting with Explainable AI
+# Project README
 
-[![GitHub Repo](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/Stock-XAI/model)
+## Overview
 
-## 📌 Overview
-
-This repository contains the codebase and configuration files for the `finma-7b-4bit-quantized` model, a quantized and LoRA-finetuned version of a large language model applied to financial time series forecasting. The goal of this project is to enable resource-efficient financial prediction while enhancing interpretability through Explainable AI (XAI) methods.
+This repository contains scripts and notebooks for efficiently fine-tuning and interpreting large language models (LLMs) using state-of-the-art quantization, fine-tuning techniques, and interpretability tools. Specifically, the project leverages 4-bit quantization for memory efficiency, LoRA (Low-Rank Adaptation) for fine-tuning efficiency, and LLM Explainer for model interpretability.
 
 ---
 
-## 🚀 Project Goals
+## Contents
 
-### ✅ Accomplished (Past 2 Weeks)
+### 1. Quantization (`model_quantaization.ipynb`)
 
-* **Model Size Reduction:**
-  Compressed `finma-7b-full` to 3.87GB using 4-bit quantization.
-  🔗 [View Model on Hugging Face](https://huggingface.co/capston-team-5/finma-7b-4bit-quantized)
+This notebook demonstrates how to load and quantize a full precision FP16 Hugging Face transformer model into 4-bit precision.
 
-* **Training Optimization:**
-  Applied LoRA fine-tuning and memory-efficient training configurations.
+**Features:**
 
-### 🔄 Ongoing (Current Cycle)
+* Efficient loading of large FP16 models.
+* Implementation of 4-bit quantization.
+* Uploading quantized models to Hugging Face model repository.
 
-* **SHAP Integration:**
-  Applying SHAP (SHapley Additive exPlanations) to understand feature contributions.
+**Steps included:**
 
-* **XAI Exploration:**
-  Comparing additional explainability techniques (e.g., Integrated Gradients, Attention Rollout).
+* Loading a full FP16 model from Hugging Face.
+* Applying quantization techniques (BitsAndBytes).
+* Validation and memory footprint analysis.
+* Saving and pushing quantized model to Hugging Face Hub.
 
-* **Regression Finetuning:**
-  Adapting the model for regression tasks to improve stock price forecasting accuracy.
+**Requirements:**
 
----
-
-## 🧠 Model Details
-
-* **Base Model:** finma-7b-full
-* **Quantization:** 4-bit (GPTQ)
-* **Fine-Tuning:** LoRA (Low-Rank Adaptation)
-* **Frameworks:** Transformers, PEFT, BitsAndBytes
+* Hugging Face transformers
+* BitsAndBytes
+* PyTorch
 
 ---
 
-## 📊 Dataset
+### 2. Fine-tuning with LoRA (`fine_tuning.ipynb`)
 
-The dataset consists of daily KOSPI stock prices for the top-listed companies in South Korea, including:
+This notebook provides the procedure to fine-tune the previously quantized model using Low-Rank Adaptation (LoRA), a parameter-efficient fine-tuning technique.
 
-* Open, High, Low, Close, Volume
-* Daily % Change
+**Features:**
+
+* Efficient fine-tuning with reduced computational requirements.
+* Integration with quantized models.
+
+**Steps included:**
+
+* Loading a quantized model.
+* Configuring and applying LoRA.
+* Fine-tuning on custom datasets.
+* Evaluating model performance during training.
+
+**Requirements:**
+
+* PEFT (Parameter-Efficient Fine-Tuning) from Hugging Face
+* PyTorch
+* Transformers
+
+---
+
+### 3. Model Interpretability with LLM Explainer (`llm_explainer.ipynb`)
+
+This notebook illustrates the use of LLM Explainer for interpreting and analyzing predictions made by fine-tuned LLMs, enhancing transparency and trustworthiness.
+
+**Features:**
+
+* Explanation of individual model predictions.
+* Visualization of attention and important tokens.
+* Comparison between predictions.
+
+**Steps included:**
+
+* Loading fine-tuned LoRA model.
+* Using LLM Explainer to generate interpretations.
+* Visualization of interpretations.
+
+**Requirements:**
+
+* LLM Explainer
+* Transformers
+* PyTorch
+
+---
+
+## Usage Instructions
+
+### Installation
+
+```bash
+pip install transformers bitsandbytes peft llm_explainer
+```
+
+### Running Notebooks
+
+* Ensure each notebook is executed sequentially: first quantize, then fine-tune, and finally interpret the model.
+* Adjust configuration parameters in each notebook according to your dataset and model specifics.
+
+---
+
+## Contributing
+
+Contributions and improvements are welcome! Please submit pull requests or open issues for discussion.
+
+---
+
+## References
+
+* [BitsAndBytes GitHub](https://github.com/TimDettmers/bitsandbytes)
+* [PEFT Hugging Face](https://huggingface.co/docs/peft/index)
+* [LLM Explainer Documentation](https://github.com/huggingface/llm-explainer)
+
+---
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
